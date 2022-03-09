@@ -1,0 +1,3 @@
+I:\UE5_Project\Project_A\Intermediate\Build\Win64\UnrealEditor\Development\Project_A\Definitions.Project_A.h
+I:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+I:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
