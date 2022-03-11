@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "ColoredTexture.h"
 #include "Weapen.generated.h"
 
 /**
@@ -21,6 +22,8 @@ public:
 		float Scale;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		FString Name;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
+		FColoredTexture Color;
 	//œ‚«∂±¶ Ø
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		TSubclassOf<AActor> GemStone;
