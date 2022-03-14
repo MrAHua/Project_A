@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "ColoredTexture.h"
+#include "EnumName.h"
 #include "Weapen.generated.h"
 
 /**
@@ -22,8 +23,12 @@ public:
 		float Scale;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		FString Name;
+	//Use USTRUCT
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		FColoredTexture Color;
+	//Use UENUM
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
+		TEnumAsByte<Status> status;
 	//œ‚«∂±¶ Ø
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		TSubclassOf<AActor> GemStone;
