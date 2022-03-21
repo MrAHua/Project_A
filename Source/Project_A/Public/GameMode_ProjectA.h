@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Weapen.h"
+#include "Potion.h"
 #include "GameMode_ProjectA.generated.h"
 
 /**
@@ -18,7 +19,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UClassNames)
 		TSubclassOf<UWeapen> UWeapen;
+	UPROPERTY()
+		APotion* HealthPotion;
+	UFUNCTION()
+		void DestroyActorFunction();
 
 public:
 	void initGameState();
+	virtual void BeginPlay() override;
 };
