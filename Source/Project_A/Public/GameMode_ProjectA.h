@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Weapen.h"
+#include "Item.h"
 #include "Potion.h"
 #include "GameMode_ProjectA.generated.h"
 
@@ -18,7 +18,7 @@ class PROJECT_A_API AGameMode_ProjectA : public AGameModeBase
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UClassNames)
-		TSubclassOf<UWeapen> UWeapen;
+		TSubclassOf<UItem> UWeapen;
 	UPROPERTY()
 		APotion* HealthPotion;
 	UFUNCTION()

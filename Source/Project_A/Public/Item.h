@@ -6,13 +6,13 @@
 #include "UObject/NoExportTypes.h"
 #include "ColoredTexture.h"
 #include "EnumName.h"
-#include "Weapen.generated.h"
+#include "Item.generated.h"
 
 /**
  * 
  */
 UCLASS( Blueprintable )
-class PROJECT_A_API UWeapen : public UObject
+class PROJECT_A_API UItem : public UObject
 {
 	GENERATED_BODY()
 	

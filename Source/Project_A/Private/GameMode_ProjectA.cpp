@@ -27,6 +27,7 @@ void AGameMode_ProjectA::BeginPlay()
 	HealthPotion = GetWorld()->SpawnActor<APotion>(APotion::StaticClass(), SpawnLocation);
 	if (HealthPotion != nullptr) {
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, TEXT("HealthPotion Spawned"));
+		//设置定时器执行传入的函数
 		FTimerHandle Timer;
 		GetWorldTimerManager().SetTimer(Timer, this, &AGameMode_ProjectA::DestroyActorFunction, 10);
 	}
