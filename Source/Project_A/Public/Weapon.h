@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class PROJECT_A_API AWeapon : public AActor
 {
 	GENERATED_BODY()
