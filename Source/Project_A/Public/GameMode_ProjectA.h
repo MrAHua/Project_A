@@ -16,6 +16,7 @@ class PROJECT_A_API AGameMode_ProjectA : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
+	AGameMode_ProjectA();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UClassNames)
 		TSubclassOf<UItem> UWeapen;

@@ -2,8 +2,15 @@
 
 
 #include "GameMode_ProjectA.h"
+#include "Hala.h"
+#include "GameStateBase_ProjectA.h"
 #include "..\Public\GameMode_ProjectA.h"
 
+AGameMode_ProjectA::AGameMode_ProjectA()
+{
+	DefaultPawnClass = AHala::StaticClass();
+	GameStateClass = AGameStateBase_ProjectA::StaticClass();
+}
 void AGameMode_ProjectA::DestroyActorFunction()
 {
 	if (HealthPotion != nullptr) {
