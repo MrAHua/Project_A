@@ -31,8 +31,7 @@ void AHala::Tick(float DeltaTime)
 		InputVector += GetActorForwardVector() * MovementInput.X * DeltaTime;
 		InputVector += GetActorRightVector() * MovementInput.Y * DeltaTime;
 		GetCharacterMovement()->AddInputVector(InputVector);
-		GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Red,
-			FString::Printf(TEXT("x- %f, y - %f, z - % f"),InputVector.X, InputVector.Y, InputVector.Z));
+		//GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, FString::Printf(TEXT("x- %f, y - %f, z - % f"),InputVector.X, InputVector.Y, InputVector.Z));
 	}
 	if (!CameraInput.IsNearlyZero())
 	{

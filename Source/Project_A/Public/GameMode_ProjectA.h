@@ -11,6 +11,7 @@
 /**
  * 
  */
+DECLARE_DELEGATE(FStandardDelegateSignature)
 UCLASS()
 class PROJECT_A_API AGameMode_ProjectA : public AGameModeBase
 {
@@ -28,4 +29,6 @@ public:
 public:
 	void initGameState();
 	virtual void BeginPlay() override;
+
+	FStandardDelegateSignature MyStandardDelegate;
 };
