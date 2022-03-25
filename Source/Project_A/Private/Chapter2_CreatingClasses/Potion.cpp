@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Potion.h"
+#include "Chapter2_CreatingClasses/Potion.h"
 
 // Sets default values
 APotion::APotion()

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "InventoryActor.h"
+#include "Chapter4_ActorsandComponents/InventoryActor.h"
 #include "InventoryComponent.generated.h"
 
 

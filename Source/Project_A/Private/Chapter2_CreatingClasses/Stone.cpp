@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Stone.h"
+#include "Chapter2_CreatingClasses/Stone.h"
 
 // Sets default values
 AStone::AStone()

@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "InventoryComponent.h"
-#include "InventoryActor.h"
+#include "Chapter4_ActorsandComponents/InventoryComponent.h"
+#include "Chapter4_ActorsandComponents/InventoryActor.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Hala.generated.h"

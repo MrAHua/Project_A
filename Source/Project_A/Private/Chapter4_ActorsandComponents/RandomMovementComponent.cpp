@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "RandomMovementComponent.h"
+#include "Chapter4_ActorsandComponents/RandomMovementComponent.h"
 
 // Sets default values for this component's properties
 URandomMovementComponent::URandomMovementComponent()

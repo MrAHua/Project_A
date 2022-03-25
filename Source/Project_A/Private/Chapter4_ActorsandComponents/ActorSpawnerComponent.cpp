@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ActorSpawnerComponent.h"
+#include "Chapter4_ActorsandComponents/ActorSpawnerComponent.h"
 
 // Sets default values for this component's properties
 UActorSpawnerComponent::UActorSpawnerComponent()

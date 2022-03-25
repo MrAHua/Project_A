@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Item.h"
-#include "Potion.h"
+#include "Chapter2_CreatingClasses/Item.h"
+#include "Chapter2_CreatingClasses/Potion.h"
 #include "GameMode_ProjectA.generated.h"
 
 /**

@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Barrack.h"
-#include "BarracksUnit.h"
+#include "Chapter4_ActorsandComponents/Barrack.h"
+#include "Chapter4_ActorsandComponents/BarracksUnit.h"
 #include "Particles/ParticleSystemComponent.h"
 
 // Sets default values

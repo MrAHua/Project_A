@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "OrbitingMovementComponent.h"
+#include "Chapter4_ActorsandComponents/OrbitingMovementComponent.h"
 
 // Sets default values for this component's properties
 UOrbitingMovementComponent::UOrbitingMovementComponent()

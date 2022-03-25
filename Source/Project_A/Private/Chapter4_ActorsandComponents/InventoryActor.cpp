@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "InventoryActor.h"
+#include "Chapter4_ActorsandComponents/InventoryActor.h"
 
 AInventoryActor::AInventoryActor():Super()
 {
