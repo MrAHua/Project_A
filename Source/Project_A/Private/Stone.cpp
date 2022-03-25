@@ -8,6 +8,8 @@ AStone::AStone()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	StoneLifeTime = 10;
+	IsDead = false;
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("BaseMeshComponent");
 	//auto from c++11,instead of code :ConstrctorHelpers::FObjectFinder<UStaticMesh>
 	auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
@@ -21,7 +23,11 @@ void AStone::BeginPlay()
 {
 	Super::BeginPlay();
 	//设置Actor的生命周期
-	SetLifeSpan(10);
+	if (IsDead)
+	{
+		SetLifeSpan(StoneLifeTime);
+
+	}
 }
 
 // Called every frame

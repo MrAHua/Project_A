@@ -4,23 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Stone.generated.h"
+#include "Barrack.generated.h"
 
 UCLASS()
-class PROJECT_A_API AStone : public AActor
+class PROJECT_A_API ABarrack : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AStone();
-	//添加静态网格体组件
-	UPROPERTY()
-		UStaticMeshComponent* Mesh;
-	UPROPERTY(EditAnywhere)
-		float StoneLifeTime;
-	UPROPERTY(EditAnywhere)
-		bool IsDead;
+	ABarrack();
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,4 +23,18 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY()
+		UStaticMeshComponent* BuildingMesh;
+	UPROPERTY()
+		UParticleSystemComponent* SpawnPoint;
+	UPROPERTY()
+		UClass* UnitToSpawn;
+	UPROPERTY()
+		float SpawnInterval;
+	UFUNCTION()
+		void SpawnUnit();
+	UFUNCTION()
+		void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	UPROPERTY()
+		FTimerHandle SpawnTimerHandle;
 };
