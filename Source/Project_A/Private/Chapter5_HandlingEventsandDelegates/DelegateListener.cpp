@@ -29,6 +29,7 @@ void ADelegateListener::BeginPlay()
 		if (MyGameMode != nullptr)
 		{
 			MyGameMode->MyStandardDelegate.BindUObject(this, &ADelegateListener::EnableLight);
+			MyGameMode->PointLightOutDelegate.BindUObject(this, &ADelegateListener::LightOut);
 		}
 	}
 }
@@ -43,5 +44,26 @@ void ADelegateListener::Tick(float DeltaTime)
 void ADelegateListener::EnableLight()
 {
 	PointLight->SetVisibility(true);
+}
+
+void ADelegateListener::LightOut()
+{
+	PointLight->SetVisibility(false);
+}
+
+void ADelegateListener::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	UWorld* TheWorld = GetWorld();
+	if (TheWorld != nullptr)
+	{
+		AGameModeBase* GameMode = UGameplayStatics::GetGameMode(TheWorld);
+		AGameMode_ProjectA* MyGameMode = Cast<AGameMode_ProjectA>(GameMode);
+		if (MyGameMode != nullptr)
+		{
+			MyGameMode->MyStandardDelegate.Unbind();
+			MyGameMode->PointLightOutDelegate.Unbind();
+		}
+	}
 }
 

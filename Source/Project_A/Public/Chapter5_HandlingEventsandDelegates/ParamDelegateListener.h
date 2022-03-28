@@ -5,16 +5,16 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/PointLightComponent.h"
-#include "DelegateListener.generated.h"
+#include "ParamDelegateListener.generated.h"
 
 UCLASS()
-class PROJECT_A_API ADelegateListener : public AActor
+class PROJECT_A_API AParamDelegateListener : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ADelegateListener();
+	AParamDelegateListener();
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,11 +25,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-		void EnableLight();
-	UFUNCTION()
-		void LightOut();
+		void SetLightColor(FLinearColor LightColor);
 	UPROPERTY()
 		UPointLightComponent* PointLight;
-	UFUNCTION()
-		virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };

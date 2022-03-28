@@ -12,6 +12,7 @@
  * 
  */
 DECLARE_DELEGATE(FStandardDelegateSignature)
+DECLARE_DELEGATE_OneParam(FParamDelegateSignature, FLinearColor)
 UCLASS()
 class PROJECT_A_API AGameMode_ProjectA : public AGameModeBase
 {
@@ -31,4 +32,6 @@ public:
 	virtual void BeginPlay() override;
 
 	FStandardDelegateSignature MyStandardDelegate;
+	FStandardDelegateSignature PointLightOutDelegate;
+	FParamDelegateSignature MyParameterDelegate;
 };

@@ -39,9 +39,18 @@ void AXTriggerVolume::NotifyActorBeginOverlap(AActor* OtherActor)
 		AGameModeBase* GameMode = UGameplayStatics::GetGameMode(TheWorld);
 		AGameMode_ProjectA* MyGameMode = Cast<AGameMode_ProjectA>(GameMode);
 		MyGameMode->MyStandardDelegate.ExecuteIfBound();
+		MyGameMode->MyParameterDelegate.ExecuteIfBound(FLinearColor(1, 0, 0, 1));
 	}
 }
 void AXTriggerVolume::NotifyActorEndOverlap(AActor* OtherActor)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Red, FString::Printf(TEXT("%s left me"), *(OtherActor -> GetName())));
+
+	UWorld* TheWorld = GetWorld();
+	if (TheWorld != nullptr)
+	{
+		AGameModeBase* GameMode = UGameplayStatics::GetGameMode(TheWorld);
+		AGameMode_ProjectA* MyGameMode = Cast<AGameMode_ProjectA>(GameMode);
+		MyGameMode->PointLightOutDelegate.ExecuteIfBound();
+	}
 }
