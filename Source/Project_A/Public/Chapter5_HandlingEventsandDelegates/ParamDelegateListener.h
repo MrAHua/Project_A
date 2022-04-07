@@ -25,7 +25,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-		void SetLightColor(FLinearColor LightColor);
+		void SetLightColor(FLinearColor LightColor, bool EnableLight);
 	UPROPERTY()
 		UPointLightComponent* PointLight;
 };

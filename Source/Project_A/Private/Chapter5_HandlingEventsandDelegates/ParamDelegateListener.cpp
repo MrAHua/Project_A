@@ -25,7 +25,7 @@ void AParamDelegateListener::BeginPlay()
 		AGameMode_ProjectA* MyGameMode =Cast<AGameMode_ProjectA>(GameMode);
 		if (MyGameMode != nullptr)
 		{
-			MyGameMode->MyParameterDelegate.BindUObject(this, &AParamDelegateListener::SetLightColor);
+			MyGameMode->MyParameterDelegate.BindUObject(this, &AParamDelegateListener::SetLightColor, true);
 		}
 	}
 
@@ -38,9 +38,11 @@ void AParamDelegateListener::Tick(float DeltaTime)
 
 }
 
-void AParamDelegateListener::SetLightColor(FLinearColor LightColor)
+
+void AParamDelegateListener::SetLightColor(FLinearColor LightColor, bool EnableLight)
 {
 	PointLight->SetLightColor(LightColor);
+	PointLight->SetVisibility(EnableLight);
 }
 
 
