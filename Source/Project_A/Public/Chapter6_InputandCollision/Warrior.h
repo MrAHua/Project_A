@@ -26,11 +26,15 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void Forward(float amount);
-	void Right(float amount);
-	void Back(float amount);
-	void Left(float amount);
+	//向前移动
+	void MoveForward(float Axis);
+	//向右移动
+	void MoveRight(float Axis);
+	//自拍杆
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		class USpringArmComponent* CameraBoom;
+	//相机
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		class UCameraComponent* FollowCamera;
 
-private:
-	FVector lastInput;
 };
