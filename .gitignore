@@ -362,3 +362,10 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Content
+
+# Unreal Engine
+/Binaries/
+/Build/
+/DerivedDataCache/
+/Intermediate/
+/Saved/
