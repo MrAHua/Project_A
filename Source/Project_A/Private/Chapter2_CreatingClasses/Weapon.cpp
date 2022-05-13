@@ -23,9 +23,12 @@ AWeapon::AWeapon()
 		BoxTwo->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
 	}
 	RootComponent = Root;
-	BoxOne->K2_AttachTo(Root);
-	BoxTwo->K2_AttachTo(ChildSceneComponent);
-	ChildSceneComponent->K2_AttachTo(Root);
+	BoxOne->SetupAttachment(Root);
+		//K2_AttachTo(Root);
+	BoxTwo->SetupAttachment(ChildSceneComponent);
+		//K2_AttachTo(ChildSceneComponent);
+	ChildSceneComponent->SetupAttachment(Root);
+		//K2_AttachTo(Root);
 	/*BoxOne->AttachToComponent(Root, FAttachmentTransformRules::KeepRelativeTransform);
 	BoxTwo->AttachToComponent(ChildSceneComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	ChildSceneComponent->AttachToComponent(Root, FAttachmentTransformRules::KeepRelativeTransform);*/

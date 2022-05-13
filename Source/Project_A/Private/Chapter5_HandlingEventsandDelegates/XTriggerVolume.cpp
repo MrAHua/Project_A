@@ -12,7 +12,7 @@ AXTriggerVolume::AXTriggerVolume()
 	PrimaryActorTick.bCanEverTick = true;
 	RootComponent = CreateDefaultSubobject<USceneComponent>("Root");
 	TriggerZone = CreateDefaultSubobject<UBoxComponent>("BoxComponet");
-	TriggerZone->K2_AttachTo(RootComponent);
+	TriggerZone->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
