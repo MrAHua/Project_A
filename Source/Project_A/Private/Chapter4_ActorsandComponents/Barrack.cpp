@@ -34,7 +34,7 @@ void ABarrack::BeginPlay()
 {
 	Super::BeginPlay();
 	RootComponent = BuildingMesh;
-	SpawnPoint->K2_AttachTo(RootComponent);
+	SpawnPoint->SetupAttachment(RootComponent);
 	SpawnPoint->SetRelativeLocation(FVector(150, 0, 0));
 	GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle,this, &ABarrack::SpawnUnit, SpawnInterval, true);
 }

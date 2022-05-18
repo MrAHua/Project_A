@@ -17,7 +17,7 @@ AHala::AHala()
 void AHala::BeginPlay()
 {
 	Super::BeginPlay();
-	MainCamera->K2_AttachTo(RootComponent);
+	MainCamera->SetupAttachment(RootComponent);
 }
 
 // Called every frame

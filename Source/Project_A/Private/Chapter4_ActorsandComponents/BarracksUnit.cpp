@@ -24,7 +24,7 @@ ABarracksUnit::ABarracksUnit()
 void ABarracksUnit::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnPoint->K2_AttachTo(RootComponent);
+	SpawnPoint->SetupAttachment(RootComponent);
 }
 
 // Called every frame
