@@ -37,9 +37,9 @@ void URandomMovementComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 		Parent->SetActorLocation(
 			Parent->GetActorLocation() +
 			FVector(
-				FMath::FRandRange(-1, 1) * MovementRadius,
-				FMath::FRandRange(-1, 1) * MovementRadius,
-				FMath::FRandRange(-1, 1) * MovementRadius));
+				FMath::FRandRange(-1.0f, 1.0f) * MovementRadius,
+				FMath::FRandRange(-1.0f, 1.0f) * MovementRadius,
+				FMath::FRandRange(-1.0f, 1.0f) * MovementRadius));
 	}
 }
 
