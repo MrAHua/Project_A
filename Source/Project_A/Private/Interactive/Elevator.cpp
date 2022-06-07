@@ -47,19 +47,23 @@ void AElevator::Tick(float DeltaTime)
 
 }
 
-void AElevator::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AElevator::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin"));
+		ElevatorSpotLight->Intensity = 50000.0f;
+		ElevatorSpotLight->SetLightColor(FLinearColor(255.0f,0.0f,0.0f,0.0f));
 	}
 }
 
-void AElevator::OnOverlapEnd(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void AElevator::OnOverlapEnd(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap End"));
+		ElevatorSpotLight->Intensity = 50000.0f;
+		ElevatorSpotLight->SetLightColor(FLinearColor(0.0f, 0.0f, 255.0f, 0.0f));
 	}
 }
 
