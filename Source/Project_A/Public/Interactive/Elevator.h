@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Blueprint/UserWidget.h"
 #include "Elevator.generated.h"
 
 class UStaticMeshComponent;
@@ -11,6 +12,12 @@ class UBoxComponent;
 class UPointLightComponent;
 class USpotLightComponent;
 
+UENUM()
+enum class EElevatorState:uint8
+{
+	Stop = 0,
+	Running
+};
 
 UCLASS()
 class PROJECT_A_API AElevator : public AActor
@@ -21,16 +28,20 @@ public:
 	// Sets default values for this actor's properties
 	AElevator();
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
 		USceneComponent* SceneComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* ElevatorMesh;
+		UStaticMeshComponent* ElevatorMesh;
 	UPROPERTY(EditAnywhere)
-	float RunSpeed;
+		float RunSpeed;
 	UPROPERTY(EditAnywhere)
-	UBoxComponent* OverlapBox;
+		UBoxComponent* OverlapBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Interactive")
-	USpotLightComponent* ElevatorSpotLight;
+		USpotLightComponent* ElevatorSpotLight;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> widgetBlackLines;
+
+	UUserWidget* widgetBlackLinesInstance;
 
 protected:
 	// Called when the game starts or when spawned
@@ -45,4 +56,7 @@ public:
 
 	UFUNCTION()
 		void OnOverlapEnd(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION(BlueprintCallable)
+		void MoveToTargetFloor(const FVector& TargetFloorLocation);
 };

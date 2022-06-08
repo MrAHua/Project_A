@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/SpotLightComponent.h"
 #include "Components/SceneComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Engine/SpotLight.h"
 
 // Sets default values
@@ -55,6 +56,12 @@ void AElevator::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor*
 		ElevatorSpotLight->Intensity = 50000.0f;
 		ElevatorSpotLight->SetLightColor(FLinearColor(255.0f,0.0f,0.0f,0.0f));
 	}
+
+	widgetBlackLinesInstance = CreateWidget<UUserWidget>(GetWorld(), widgetBlackLines);
+	widgetBlackLinesInstance->AddToViewport();
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PlayerController->SetInputMode(FInputModeGameAndUI());
+	PlayerController->bShowMouseCursor = true;
 }
 
 void AElevator::OnOverlapEnd(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -64,6 +71,19 @@ void AElevator::OnOverlapEnd(class UPrimitiveComponent* newComp, class AActor* O
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap End"));
 		ElevatorSpotLight->Intensity = 50000.0f;
 		ElevatorSpotLight->SetLightColor(FLinearColor(0.0f, 0.0f, 255.0f, 0.0f));
+		if (widgetBlackLinesInstance != nullptr)
+		{
+			widgetBlackLinesInstance->RemoveFromViewport();
+			APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+			PlayerController->SetInputMode(FInputModeGameOnly());
+			PlayerController->bShowMouseCursor = false;
+		}
+		
 	}
+}
+
+void AElevator::MoveToTargetFloor(const FVector& TargetFloorLocation)
+{
+	
 }
 
