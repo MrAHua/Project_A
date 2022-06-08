@@ -1,4 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+
+\Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Interactive/Elevator.h"
@@ -8,6 +9,7 @@
 #include "Components/SceneComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/SpotLight.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values
 AElevator::AElevator()
