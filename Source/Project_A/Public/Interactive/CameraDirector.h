@@ -14,7 +14,9 @@ struct FCameraInfo{
 	UPROPERTY(EditAnywhere)
 	AActor* Camera;
 	UPROPERTY(EditAnywhere)
-	float TimeToNextCameraChage;
+	float TimeBetweenCameraChanges;
+	UPROPERTY(EditAnywhere)
+	float SmoothBlendTime;
 
 	int CameraIndex;
 };
@@ -38,8 +40,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		TArray<FCameraInfo> CameraInfos;
-	UPROPERTY(EditAnywhere)
-	TArray<AActor*> CameraList;
 	
 	float TimeToNextCameraChage;
 

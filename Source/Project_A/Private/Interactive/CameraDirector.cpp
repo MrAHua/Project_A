@@ -16,8 +16,9 @@ ACameraDirector::ACameraDirector()
 void ACameraDirector::BeginPlay()
 {
 	Super::BeginPlay();
-	int ArrayNum = CameraList.Num();
+	int ArrayNum = CameraInfos.Num();
 	FString ArrayNumStr = FString::FromInt(ArrayNum);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("find cameras in scene>>"));
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, *ArrayNumStr );
 }
 
@@ -26,36 +27,33 @@ void ACameraDirector::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	const float TimeBetweenCameraChanges = 2.0f;
-	const float SmoothBlendTime = 0.75f;
-	TimeToNextCameraChage -= DeltaTime;//-0.016,1.968
+	//ä¸‹ä¸€ä¸ªç›¸æœºç­‰å¾…æ—¶é—´
+	float TimeBetweenCameraChanges =CameraInfos[CameraIndex].TimeBetweenCameraChanges;
+	//æ»‘åŠ¨æ—¶é—´
+	float SmoothBlendTime = CameraInfos[CameraIndex].SmoothBlendTime;
+	TimeToNextCameraChage -= DeltaTime;
 	FString FloatValue = FString::SanitizeFloat(TimeToNextCameraChage);
 	
 	if (TimeToNextCameraChage <= 0.0f	)
 	{
-		TimeToNextCameraChage += TimeBetweenCameraChanges;//1.984
-		FString FloatValue2 = FString::SanitizeFloat(TimeToNextCameraChage);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, *FloatValue2);
+		TimeToNextCameraChage += TimeBetweenCameraChanges;
 		CameraIndex++;
 		FString CameraIndexValue = FString::FromInt(CameraIndex);
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *CameraIndexValue);
+
 		APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
-		if (OurPlayerController && CameraList.Num()>0)
+		if (OurPlayerController && CameraInfos.Num()>0)
 		{
-			if (CameraIndex >= CameraList.Num())
+			if (CameraIndex >= CameraInfos.Num())
 			{
 				CameraIndex = 0;
 			}
-			if ((OurPlayerController->GetViewTarget() != nullptr) &&(CameraList[CameraIndex] != nullptr) )
+			if ((OurPlayerController->GetViewTarget() != nullptr) &&(CameraInfos[CameraIndex].Camera != nullptr) )
 			{
-				OurPlayerController->SetViewTargetWithBlend(CameraList[CameraIndex], SmoothBlendTime);
+				OurPlayerController->SetViewTargetWithBlend(CameraInfos[CameraIndex].Camera, SmoothBlendTime);
 			}
-			//else if ((OurPlayerController->GetViewTarget() != CameraTwo) && (CameraTwo != nullptr))
-			//{
-			//	//Æ½»¬µØ»ìºÏµ½ÉãÏñ»ú2¡£
-			//	OurPlayerController->SetViewTargetWithBlend(CameraTwo, SmoothBlendTime);
-			//}
 		}
+
 	}
 }
 
