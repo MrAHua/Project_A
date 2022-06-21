@@ -16,7 +16,9 @@ ACameraDirector::ACameraDirector()
 void ACameraDirector::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	int ArrayNum = CameraList.Num();
+	FString ArrayNumStr = FString::FromInt(ArrayNum);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, *ArrayNumStr );
 }
 
 // Called every frame
@@ -26,25 +28,33 @@ void ACameraDirector::Tick(float DeltaTime)
 
 	const float TimeBetweenCameraChanges = 2.0f;
 	const float SmoothBlendTime = 0.75f;
-	TimeToNextCameraChage -= DeltaTime;
+	TimeToNextCameraChage -= DeltaTime;//-0.016,1.968
 	FString FloatValue = FString::SanitizeFloat(TimeToNextCameraChage);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *FloatValue);
+	
 	if (TimeToNextCameraChage <= 0.0f	)
 	{
-		TimeToNextCameraChage += TimeBetweenCameraChanges;
-		
+		TimeToNextCameraChage += TimeBetweenCameraChanges;//1.984
+		FString FloatValue2 = FString::SanitizeFloat(TimeToNextCameraChage);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, *FloatValue2);
+		CameraIndex++;
+		FString CameraIndexValue = FString::FromInt(CameraIndex);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *CameraIndexValue);
 		APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
-		if (OurPlayerController)
+		if (OurPlayerController && CameraList.Num()>0)
 		{
-			if ((OurPlayerController->GetViewTarget() != CameraOne) &&(CameraTwo != nullptr) )
+			if (CameraIndex >= CameraList.Num())
 			{
-				OurPlayerController->SetViewTarget(CameraOne);
+				CameraIndex = 0;
 			}
-			else if ((OurPlayerController->GetViewTarget() != CameraTwo) && (CameraTwo != nullptr))
+			if ((OurPlayerController->GetViewTarget() != nullptr) &&(CameraList[CameraIndex] != nullptr) )
 			{
-				//平滑地混合到摄像机2。
-				OurPlayerController->SetViewTargetWithBlend(CameraTwo, SmoothBlendTime);
+				OurPlayerController->SetViewTargetWithBlend(CameraList[CameraIndex], SmoothBlendTime);
 			}
+			//else if ((OurPlayerController->GetViewTarget() != CameraTwo) && (CameraTwo != nullptr))
+			//{
+			//	//平滑地混合到摄像机2。
+			//	OurPlayerController->SetViewTargetWithBlend(CameraTwo, SmoothBlendTime);
+			//}
 		}
 	}
 }

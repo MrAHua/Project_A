@@ -6,6 +6,19 @@
 #include "GameFramework/Actor.h"
 #include "CameraDirector.generated.h"
 
+USTRUCT()
+struct FCameraInfo{
+
+	GENERATED_BODY ()
+
+	UPROPERTY(EditAnywhere)
+	AActor* Camera;
+	UPROPERTY(EditAnywhere)
+	float TimeToNextCameraChage;
+
+	int CameraIndex;
+};
+
 UCLASS()
 class PROJECT_A_API ACameraDirector : public AActor
 {
@@ -24,9 +37,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	AActor* CameraOne;
+		TArray<FCameraInfo> CameraInfos;
 	UPROPERTY(EditAnywhere)
-	AActor* CameraTwo;
+	TArray<AActor*> CameraList;
 	
 	float TimeToNextCameraChage;
+
+	int CameraIndex;
 };
