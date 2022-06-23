@@ -42,9 +42,9 @@ public:
 		TArray<FCameraInfo> CameraInfos;
 
 
-	/* Ïà»úµÈ´ýÊ±¼äµ¹¼ÆÊ±*/
+	/* ç›¸æœºç­‰å¾…æ—¶é—´*/
 	float CameraWaitTime;
-	/* Æ½»¬ÇÐ»»µ¹¼ÆÊ±*/
+	/* ç›¸æœºæ»‘åŠ¨æ—¶é—´å€’è®¡æ—¶ */
 	float BlendCountDownTime;
 	int CameraIndex;
 	bool CanSetNextCamera;
