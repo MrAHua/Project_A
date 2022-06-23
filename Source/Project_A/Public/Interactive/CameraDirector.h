@@ -40,11 +40,15 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		TArray<FCameraInfo> CameraInfos;
-	
-	float TimeToNextCameraChage;
+
+
+	/* 相机等待时间倒计时*/
 	float CameraWaitTime;
-	float SmoothBlendTime;
-	float CostTime;
+	/* 平滑切换倒计时*/
+	float BlendCountDownTime;
 	int CameraIndex;
 	bool CanSetNextCamera;
+	bool StartCameraTiming;
+	bool StartBlendTiming;
+	bool IsDirector;
 };

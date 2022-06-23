@@ -10,6 +10,10 @@ ACameraDirector::ACameraDirector()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	CanSetNextCamera = true;
+	BlendCountDownTime = -1.0f;
+	StartCameraTiming = true;
+	StartBlendTiming = false;
+	IsDirector = true;
 
 }
 
@@ -37,56 +41,67 @@ void ACameraDirector::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (CameraInfos.Num() > 0)
+	if (IsDirector && CameraInfos.Num() > 0)
 	{
 		if (CanSetNextCamera)
 		{
 			//停留时间
 			CameraWaitTime =CameraInfos[CameraIndex].CameraWaitTime;
 			//滑动时间
-			SmoothBlendTime = CameraInfos[CameraIndex].SmoothBlendTime;
-			//停留时间+滑动时间
-			CostTime = CameraWaitTime + SmoothBlendTime;
+			BlendCountDownTime = CameraInfos[CameraIndex].SmoothBlendTime;
+
 			CanSetNextCamera = false;
 		}
-
-		TimeToNextCameraChage = CameraWaitTime - DeltaTime;
-		CameraWaitTime = TimeToNextCameraChage;
-		FString CameraWaitTimeS = FString::SanitizeFloat(CameraWaitTime);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green,*CameraWaitTimeS);
-		//停留时间消耗完成后
-		if (TimeToNextCameraChage <= 0.0f)
+		//相机等待计时
+		if (StartCameraTiming)
 		{
-			//CanSetNextCamera = true;
+			CameraWaitTime = CameraWaitTime - DeltaTime;
+			FString CameraWaitTimeS = FString::SanitizeFloat(CameraWaitTime);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, *CameraWaitTimeS);
+		}
+		//相机滑动计时
+		if (StartBlendTiming)
+		{
+			BlendCountDownTime = BlendCountDownTime - DeltaTime;
+			FString BlendCountDownTimeS = FString::SanitizeFloat(BlendCountDownTime);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *BlendCountDownTimeS);
+			//滑动结束之后设置下一个相机信息
+			if (BlendCountDownTime <= 0)
+			{
+				CameraIndex++;
+				CanSetNextCamera = true;
+				StartBlendTiming = false;//关闭滑动倒计时
+				StartCameraTiming = true;//开启相机等待倒计时
+				
+				//停留时间>0,组织当前帧进入下边逻辑
+				CameraWaitTime = 1.0f;
+			}
+		}
+		
+		//相机等待计时完成&&相机没有滑动
+		if (CameraWaitTime <= 0.0f && !StartBlendTiming)
+		{
 			APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
 			if (OurPlayerController)
 			{
+				//最后一个相机直接滑动到首个相机
 				if (CameraIndex >= CameraInfos.Num() - 1)
 				{
-					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Reset"));
-					FString index = FString::FromInt(CameraIndex);
-					UE_LOG(LogTemp, Warning, TEXT("Camera[%s]----start"), *index);
-					CameraIndex = 0;
-					OurPlayerController->SetViewTargetWithBlend(CameraInfos[CameraIndex].Camera, CameraInfos[CameraInfos.Num() - 1].SmoothBlendTime);
-					CanSetNextCamera = true;
+
+					OurPlayerController->SetViewTargetWithBlend(OurPlayerController->GetPawn(), CameraInfos[CameraIndex].SmoothBlendTime);
+					IsDirector = false;
 				}
-				else {
+				else 
+				{
 					//读取下一个相机
 					if ((OurPlayerController->GetViewTarget() != nullptr) && (CameraInfos[CameraIndex + 1].Camera != nullptr))
 					{
 						FString index = FString::FromInt(CameraIndex);
 						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, FString::Printf(TEXT("Camera[%s]----start"), *index), true);
 						OurPlayerController->SetViewTargetWithBlend(CameraInfos[CameraIndex + 1].Camera, CameraInfos[CameraIndex].SmoothBlendTime);
-						CameraWaitTime += CameraInfos[CameraIndex].SmoothBlendTime;
-						if (CameraWaitTime > 0)
-						{
-							CanSetNextCamera = false;
-						} 
-						else
-						{
-							CanSetNextCamera = true;
-							CameraIndex++;
-						}
+						StartCameraTiming = false;//关闭相机等待计时
+						BlendCountDownTime = CameraInfos[CameraIndex].SmoothBlendTime;
+						StartBlendTiming = true;//开启滑动计时
 					}
 				}
 			}
