@@ -84,7 +84,7 @@ void ACameraDirector::Tick(float DeltaTime)
 			APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
 			if (OurPlayerController)
 			{
-				//最后一个相机直接滑动到首个相机
+				//最后一个相机后滑动到角色相机
 				if (CameraIndex >= CameraInfos.Num() - 1)
 				{
 

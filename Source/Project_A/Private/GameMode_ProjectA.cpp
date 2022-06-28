@@ -18,6 +18,23 @@ void AGameMode_ProjectA::DestroyActorFunction()
 	}
 }
 
+void AGameMode_ProjectA::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
+{
+	if (CurrentWidget != nullptr)
+	{
+		CurrentWidget->RemoveFromViewport();
+		CurrentWidget = nullptr;
+	}
+	if (NewWidgetClass != nullptr)
+	{
+		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), NewWidgetClass);
+		if (CurrentWidget != nullptr)
+		{
+			CurrentWidget->AddToViewport();
+		}
+	}
+}
+
 void AGameMode_ProjectA::initGameState() {
 	AGameMode_ProjectA* gm = Cast<AGameMode_ProjectA>(GetWorld()->GetAuthGameMode());
 	UObject* weapen = NewObject<UObject>(UWeapen);
@@ -26,6 +43,9 @@ void AGameMode_ProjectA::initGameState() {
 void AGameMode_ProjectA::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ChangeMenuWidget(StartingWidgetClass);
+
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, TEXT("Actor Spawning"));
 
 	FTransform SpawnLocation;
