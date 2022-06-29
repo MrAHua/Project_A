@@ -38,7 +38,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Camera Director")
 		TArray<FCameraInfo> CameraInfos;
 
 
@@ -48,7 +48,11 @@ public:
 	float BlendCountDownTime;
 	int CameraIndex;
 	bool CanSetNextCamera;
+	/* Whether open camera wait ticking*/
 	bool StartCameraTiming;
+	/* Whether open blend view target ticking*/
 	bool StartBlendTiming;
-	bool IsDirector;
+	/* 是否循环相机 */ 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Camera Director")
+	bool IsCycle;
 };
