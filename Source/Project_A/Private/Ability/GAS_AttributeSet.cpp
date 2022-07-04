@@ -5,6 +5,7 @@
 
 UGAS_AttributeSet::UGAS_AttributeSet()
 {
+	SkillPoint = 5;
 }
 
 void UGAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

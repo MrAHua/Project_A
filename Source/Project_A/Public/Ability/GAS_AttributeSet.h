@@ -59,4 +59,8 @@ public:
 
     UFUNCTION()
         virtual void OnRep_AttackPower(const FGameplayAttributeData& OldAttackPower);
+
+    /*Talent skill points*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+		FGameplayAttributeData SkillPoint;
 };
