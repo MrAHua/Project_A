@@ -26,15 +26,20 @@ public:
 	//默认技能
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GAS_Warrior")
 	TArray<TSubclassOf<class UGAS_GameplayAbility>> DefaultAbilities;
-	//默认属性
+	//Default attributes for a character for initializing on spawn/respawn.
+	// This is an instant GE that overrides the values for attributes that get reset on spawn/respawn.
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GAS_Warrior")
 	TSubclassOf<class UGameplayEffect> DefaultAttributeEffect;
+	// These effects are only applied one time on startup
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GAS_Warrior")
+	TArray<TSubclassOf<class UGameplayEffect>> StartupEffects;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
 
 	virtual void PossessedBy(AController* NewController) override;
 	//初始化属性值
 	virtual void InitializeAttributes();
+	virtual void AddStartupEffects();
 	// Overload to initialize abilities for GAS, and component to store default abilities
 	virtual void GiveAbilities();
 

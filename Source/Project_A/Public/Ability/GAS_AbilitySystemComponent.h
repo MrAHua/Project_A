@@ -14,4 +14,6 @@ class PROJECT_A_API UGAS_AbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 	
+public:
+	bool StartupEffectsApplied = false;
 };

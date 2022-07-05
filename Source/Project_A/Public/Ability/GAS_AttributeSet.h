@@ -33,34 +33,45 @@ public:
      */
 
      // Health
-
     UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_Health)
         FGameplayAttributeData Health;
     // Use macros we defined from AttributeSet.h to generate getters and setters
     ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, Health);
-
     UFUNCTION()
         virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);
 
     // Stamina
-
     UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_Stamina)
         FGameplayAttributeData Stamina;
     ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, Stamina);
-
     UFUNCTION()
         virtual void OnRep_Stamina(const FGameplayAttributeData& OldStamina);
 
     // Attack Power
-
     UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_AttackPower)
         FGameplayAttributeData AttackPower;
     ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, AttackPower);
-
     UFUNCTION()
         virtual void OnRep_AttackPower(const FGameplayAttributeData& OldAttackPower);
 
-    /*Talent skill points*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-		FGameplayAttributeData SkillPoint;
+    /*HealthRegenRate*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_HealthRegenRate)
+		FGameplayAttributeData HealthRegenRate;
+    ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, HealthRegenRate);
+	UFUNCTION()
+		virtual void OnRep_HealthRegenRate(const FGameplayAttributeData& OldHealthRegenRate);
+
+	/*StaminaRegenRate*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_StaminaRegenRate)
+		FGameplayAttributeData StaminaRegenRate;
+	ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, StaminaRegenRate);
+	UFUNCTION()
+		virtual void OnRep_StaminaRegenRate(const FGameplayAttributeData& OldStaminaRegenRate);
+
+	/*PowerRegenRate*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_PowerRegenRate)
+		FGameplayAttributeData PowerRegenRate;
+	ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, PowerRegenRate);
+	UFUNCTION()
+		virtual void OnRep_PowerRegenRate(const FGameplayAttributeData& OldPowerRegenRate);
 };

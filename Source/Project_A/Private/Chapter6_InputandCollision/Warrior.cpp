@@ -62,6 +62,7 @@ void AWarrior::PossessedBy(AController* NewController)
     AbilitySystemComponent->InitAbilityActorInfo(this, this);
 
     InitializeAttributes();
+	AddStartupEffects();
     GiveAbilities();
 }
 
@@ -84,6 +85,28 @@ void AWarrior::InitializeAttributes()
             FActiveGameplayEffectHandle GEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
         }
     }
+}
+
+void AWarrior::AddStartupEffects()
+{
+	if (GetLocalRole() != ROLE_Authority || AbilitySystemComponent == nullptr || AbilitySystemComponent->StartupEffectsApplied)
+	{
+		return;
+	}
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("apply start effects."));
+	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	for (TSubclassOf<UGameplayEffect> GameplayEffect : StartupEffects)
+	{
+		FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, 1, EffectContext);
+		if (NewHandle.IsValid())
+		{
+			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
+		}
+	}
+
+	AbilitySystemComponent->StartupEffectsApplied = true;
 }
 
 void AWarrior::GiveAbilities()

@@ -17,10 +17,13 @@ public:
 		AGameStateBase_ProjectA();
 
 public:
+
+
 	UFUNCTION()
 		void SetScore(int32 NewScore);
 	UFUNCTION()
 		int32 GetScore();
+	//virtual void BeginPlay() override;
 private:
 	UPROPERTY()
 		int32 CurrentScore;
