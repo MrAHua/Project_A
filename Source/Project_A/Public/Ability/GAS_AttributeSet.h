@@ -48,11 +48,11 @@ public:
         virtual void OnRep_Stamina(const FGameplayAttributeData& OldStamina);
 
     // Attack Power
-    UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_AttackPower)
-        FGameplayAttributeData AttackPower;
-    ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, AttackPower);
+    UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_Mana)
+        FGameplayAttributeData Mana;
+    ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, Mana);
     UFUNCTION()
-        virtual void OnRep_AttackPower(const FGameplayAttributeData& OldAttackPower);
+        virtual void OnRep_Mana(const FGameplayAttributeData& OldMana);
 
     /*HealthRegenRate*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_HealthRegenRate)
@@ -68,10 +68,31 @@ public:
 	UFUNCTION()
 		virtual void OnRep_StaminaRegenRate(const FGameplayAttributeData& OldStaminaRegenRate);
 
-	/*PowerRegenRate*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_PowerRegenRate)
-		FGameplayAttributeData PowerRegenRate;
-	ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, PowerRegenRate);
+	/*ManaRegenRate*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_ManaRegenRate)
+		FGameplayAttributeData ManaRegenRate;
+	ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, ManaRegenRate);
 	UFUNCTION()
-		virtual void OnRep_PowerRegenRate(const FGameplayAttributeData& OldPowerRegenRate);
+		virtual void OnRep_ManaRegenRate(const FGameplayAttributeData& OldManaRegenRate);
+
+	/*MaxHealth*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_MaxHealth)
+		FGameplayAttributeData MaxHealth;
+	ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, MaxHealth);
+	UFUNCTION()
+		virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth);
+
+	/*MaxMana*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_MaxMana)
+		FGameplayAttributeData MaxMana;
+	ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, MaxMana);
+	UFUNCTION()
+		virtual void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana);
+
+	/*MaxStamina*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", ReplicatedUsing = OnRep_MaxStamina)
+		FGameplayAttributeData MaxStamina;
+	ATTRIBUTE_ACCESSORS(UGAS_AttributeSet, MaxStamina);
+	UFUNCTION()
+		virtual void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina);
 };
