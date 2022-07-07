@@ -3,6 +3,7 @@
 
 #include "PlayerState_ProjectA.h"
 #include "Ability/GAS_AbilitySystemComponent.h"
+#include "Chapter6_InputandCollision/Warrior.h"
 #include "Ability/GAS_AttributeSet.h"
 
 APlayerState_ProjectA::APlayerState_ProjectA()
@@ -33,7 +34,10 @@ void APlayerState_ProjectA::BeginPlay()
 	{
 		MaxHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetMaxHealthAttribute()).AddUObject(this, &APlayerState_ProjectA::MaxHealthChanged);
 	}
+	AWarrior* Warrior = Cast<AWarrior>(GetPawn());
+	MaxHealth = Warrior->Attributes->GetMaxHealth();
 }
+
 
 void APlayerState_ProjectA::MaxHealthChanged(const FOnAttributeChangeData& Data)
 {

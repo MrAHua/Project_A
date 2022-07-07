@@ -11,6 +11,7 @@
 #include "Ability/GAS_AttributeSet.h"
 #include "Ability/GAS_GameplayAbility.h"
 
+#include "PlayerState_ProjectA.h"
 #include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
