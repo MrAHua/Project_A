@@ -26,6 +26,56 @@ class UAbilitySystemComponent* APlayerState_ProjectA::GetAbilitySystemComponent(
 	return AbilitySystemComponent;
 }
 
+class UGAS_AttributeSet* APlayerState_ProjectA::GetAttributeSet() const
+{
+	return AttributeSetBase;
+}
+
+float APlayerState_ProjectA::GetHealth() const
+{
+	return AttributeSetBase->GetHealth();
+}
+
+float APlayerState_ProjectA::GetMaxHealth() const
+{
+	return AttributeSetBase->GetMaxHealth();
+}
+
+float APlayerState_ProjectA::GetMana() const
+{
+	return AttributeSetBase->GetMana();
+}
+
+float APlayerState_ProjectA::GetMaxMana() const
+{
+	return AttributeSetBase->GetMaxMana();
+}
+
+float APlayerState_ProjectA::GetStamina() const
+{
+	return AttributeSetBase->GetStamina();
+}
+
+float APlayerState_ProjectA::GetMaxStamina() const
+{
+	return AttributeSetBase->GetMaxStamina();
+}
+
+float APlayerState_ProjectA::GetHealthRegenRate() const
+{
+	return AttributeSetBase->GetHealthRegenRate();
+}
+
+float APlayerState_ProjectA::GetManaRegenRate() const
+{
+	return AttributeSetBase->GetManaRegenRate();
+}
+
+float APlayerState_ProjectA::GetStaminaRegenRate() const
+{
+	return AttributeSetBase->GetStaminaRegenRate();
+}
+
 void APlayerState_ProjectA::BeginPlay()
 {
 	Super::BeginPlay();
@@ -35,7 +85,8 @@ void APlayerState_ProjectA::BeginPlay()
 		MaxHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetMaxHealthAttribute()).AddUObject(this, &APlayerState_ProjectA::MaxHealthChanged);
 	}
 	AWarrior* Warrior = Cast<AWarrior>(GetPawn());
-	MaxHealth = Warrior->Attributes->GetMaxHealth();
+	MaxHealth = GetMaxHealth();
+		//Warrior->Attributes->GetMaxHealth();
 }
 
 

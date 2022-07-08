@@ -20,10 +20,10 @@ AWarrior::AWarrior()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	//添加技能系统
-	AbilitySystemComponent = CreateDefaultSubobject<UGAS_AbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	AbilitySystemComponent ->SetIsReplicated(true);
-	AbilitySystemComponent ->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
-	Attributes = CreateDefaultSubobject<UGAS_AttributeSet>(TEXT("AttributeSet"));
+// 	AbilitySystemComponent = CreateDefaultSubobject<UGAS_AbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+// 	AbilitySystemComponent ->SetIsReplicated(true);
+// 	AbilitySystemComponent ->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+// 	Attributes = CreateDefaultSubobject<UGAS_AttributeSet>(TEXT("AttributeSet"));
 
 	//自拍杆
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
@@ -59,12 +59,18 @@ void AWarrior::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-    // Owner and Avatar are bother this character
-    AbilitySystemComponent->InitAbilityActorInfo(this, this);
-
-    InitializeAttributes();
-	AddStartupEffects();
-    GiveAbilities();
+	APlayerState_ProjectA* PS = GetPlayerState<APlayerState_ProjectA>();
+	if (PS)
+	{
+		// Set the ASC on the Server. Clients do this in OnRep_PlayerState()
+		AbilitySystemComponent = Cast<UGAS_AbilitySystemComponent>(PS->GetAbilitySystemComponent());
+		// Owner and Avatar are bother this character
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+		Attributes = PS->GetAttributeSet();
+		InitializeAttributes();
+		AddStartupEffects();
+		GiveAbilities();
+	}
 }
 
 void AWarrior::InitializeAttributes()

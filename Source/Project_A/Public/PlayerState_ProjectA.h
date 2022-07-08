@@ -21,14 +21,35 @@ public:
 
 	// Implement IAbilitySystemInterface
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerAttribute")
-		class UGAS_AttributeSet* AttributeSetBase;
+	
+	class UGAS_AttributeSet* GetAttributeSet() const;
+
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetHealth() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetMaxHealth() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetMana() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetMaxMana() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetStamina() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetMaxStamina() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetHealthRegenRate() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetManaRegenRate() const;
+	UFUNCTION(BlueprintCallable, Category = "GAS|Attributes")
+		float GetStaminaRegenRate() const;
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="PlayerAttribute")
 	float MaxHealth;
 	UPROPERTY()
 	class UGAS_AbilitySystemComponent* AbilitySystemComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerAttribute")
+	class UGAS_AttributeSet* AttributeSetBase;
 
 
 	FDelegateHandle MaxHealthChangedDelegateHandle;

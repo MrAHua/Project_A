@@ -27,6 +27,8 @@ class PROJECT_A_API UGAS_AttributeSet : public UAttributeSet
 
 public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	/*Attribute override*/
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
     /*
      * Attribute Definitions
