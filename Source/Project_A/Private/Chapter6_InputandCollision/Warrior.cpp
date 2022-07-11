@@ -24,6 +24,7 @@ AWarrior::AWarrior()
 // 	AbilitySystemComponent ->SetIsReplicated(true);
 // 	AbilitySystemComponent ->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 // 	Attributes = CreateDefaultSubobject<UGAS_AttributeSet>(TEXT("AttributeSet"));
+	DeadTag = FGameplayTag::RequestGameplayTag(FName("Effect.Death"));
 
 	//втед╦к
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
@@ -130,10 +131,30 @@ void AWarrior::GiveAbilities()
     }
 }
 
+bool AWarrior::IsDead()
+{
+	return Attributes->GetHealth() <= 0;;
+}
+
+void AWarrior::Die()
+{
+	GetCharacterMovement()->GravityScale = 0;
+	GetCharacterMovement()->Velocity = FVector(0);
+	AbilitySystemComponent->AddLooseGameplayTag(DeadTag);
+	//AbilitySystemComponent->RemoveActiveEffects();
+	if (DeathMontage)
+	{
+		PlayAnimMontage(DeathMontage);
+	}
+}
+
 // Called when the game starts or when spawned
 void AWarrior::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Attribute change callbacks
+	HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Attributes->GetHealthAttribute()).AddUObject(this, &AWarrior::HealthChanged);
 	
 }
 
@@ -181,4 +202,13 @@ void AWarrior::MoveRight(float Axis)
 
 	FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	AddMovementInput(RightDirection, Axis);
+}
+
+void AWarrior::HealthChanged(const FOnAttributeChangeData& Data)
+{
+	float CurrentHealth = Data.NewValue;
+	if (CurrentHealth <= 0 && !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))
+	{
+		Die();
+	}
 }

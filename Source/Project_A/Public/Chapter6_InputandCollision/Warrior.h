@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayTagContainer.h"
 #include "AbilitySystemComponent.h"
 #include "Warrior.generated.h"
 
@@ -33,6 +34,9 @@ public:
 	// These effects are only applied one time on startup
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GAS_Warrior")
 	TArray<TSubclassOf<class UGameplayEffect>> StartupEffects;
+	// Death Animation
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GAS_Warrior")
+		UAnimMontage* DeathMontage;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
 
@@ -42,6 +46,13 @@ public:
 	virtual void AddStartupEffects();
 	// Overload to initialize abilities for GAS, and component to store default abilities
 	virtual void GiveAbilities();
+	//角色是否死亡
+	UFUNCTION(BlueprintCallable, Category="GAS_Warrior")
+	bool IsDead();
+	//角色死亡
+	void Die();
+
+	FGameplayTag DeadTag;
 
 protected:
 	// Called when the game starts or when spawned
@@ -64,5 +75,9 @@ public:
 	//相机
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		class UCameraComponent* FollowCamera;
+
+	FDelegateHandle HealthChangedDelegateHandle;
+	// Attribute changed callbacks
+	virtual void HealthChanged(const FOnAttributeChangeData& Data);
 
 };

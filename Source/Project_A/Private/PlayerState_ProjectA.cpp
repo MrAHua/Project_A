@@ -19,6 +19,7 @@ APlayerState_ProjectA::APlayerState_ProjectA()
 	// Adding it as a subobject of the owning actor of an AbilitySystemComponent
 	// automatically registers the AttributeSet with the AbilitySystemComponent
 	AttributeSetBase = CreateDefaultSubobject<UGAS_AttributeSet>(TEXT("AttributeSetBase"));
+	DeadTag = FGameplayTag::RequestGameplayTag(FName("Effect.Death"));
 }
 
 class UAbilitySystemComponent* APlayerState_ProjectA::GetAbilitySystemComponent() const
@@ -83,6 +84,7 @@ void APlayerState_ProjectA::BeginPlay()
 	if (AbilitySystemComponent)
 	{
 		MaxHealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetMaxHealthAttribute()).AddUObject(this, &APlayerState_ProjectA::MaxHealthChanged);
+		HealthChagedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &APlayerState_ProjectA::HealthChanged);
 	}
 	AWarrior* Warrior = Cast<AWarrior>(GetPawn());
 	MaxHealth = GetMaxHealth();
@@ -94,4 +96,14 @@ void APlayerState_ProjectA::MaxHealthChanged(const FOnAttributeChangeData& Data)
 {
 	MaxHealth = Data.NewValue;
 
+}
+
+void APlayerState_ProjectA::HealthChanged(const FOnAttributeChangeData& Data)
+{
+	float CurrentHealth = Data.NewValue;
+	if (CurrentHealth <= 0 && !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))
+	{
+		AWarrior* Character = Cast<AWarrior>(GetPawn());
+		Character->Die();
+	}
 }

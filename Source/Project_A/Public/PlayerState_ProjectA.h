@@ -53,9 +53,14 @@ protected:
 
 
 	FDelegateHandle MaxHealthChangedDelegateHandle;
+	FDelegateHandle HealthChagedDelegateHandle;
+
+	FGameplayTag DeadTag;
 
 	virtual void BeginPlay() override;
 
 	// Attribute changed callbacks
 	virtual void MaxHealthChanged(const FOnAttributeChangeData& Data);
+
+	virtual void HealthChanged(const FOnAttributeChangeData& Data);
 };
