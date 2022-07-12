@@ -51,6 +51,9 @@ public:
 	bool IsDead();
 	//角色死亡
 	void Die();
+	//播放死亡完成动画通知调用的函数
+	UFUNCTION(BlueprintCallable, Category = "GAS_Warrior")
+	virtual void FinishDyingAnimation();
 
 	FGameplayTag DeadTag;
 

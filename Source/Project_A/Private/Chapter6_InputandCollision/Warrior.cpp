@@ -12,6 +12,7 @@
 #include "Ability/GAS_GameplayAbility.h"
 
 #include "PlayerState_ProjectA.h"
+#include "GameMode_ProjectA.h"
 #include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
@@ -138,14 +139,32 @@ bool AWarrior::IsDead()
 
 void AWarrior::Die()
 {
+	AbilitySystemComponent->CancelAllAbilities();
+
 	GetCharacterMovement()->GravityScale = 0;
-	GetCharacterMovement()->Velocity = FVector(0);
+	GetCharacterMovement()->MaxWalkSpeed = 0;
+	GetCharacterMovement()->DisableMovement();
 	AbilitySystemComponent->AddLooseGameplayTag(DeadTag);
-	//AbilitySystemComponent->RemoveActiveEffects();
+	FGameplayTagContainer EffectTagsToRemove;
+	/*EffectTagsToRemove.AddTag(EffectRemoveOnDeathTag);*/
+	int32 NumEffectsRemoved = AbilitySystemComponent->RemoveActiveEffectsWithTags(EffectTagsToRemove);
 	if (DeathMontage)
 	{
 		PlayAnimMontage(DeathMontage);
 	}
+}
+
+void AWarrior::FinishDyingAnimation()
+{
+	if (GetLocalRole() == ROLE_Authority)
+	{
+		AGameMode_ProjectA* GM = Cast<AGameMode_ProjectA>(GetWorld()->GetAuthGameMode());
+		if (GM)
+		{
+			GM->CharacterDieAndRespawn(GetController());
+		}
+	}
+	Destroy();
 }
 
 // Called when the game starts or when spawned
@@ -154,7 +173,7 @@ void AWarrior::BeginPlay()
 	Super::BeginPlay();
 
 	// Attribute change callbacks
-	HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Attributes->GetHealthAttribute()).AddUObject(this, &AWarrior::HealthChanged);
+	//HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Attributes->GetHealthAttribute()).AddUObject(this, &AWarrior::HealthChanged);
 	
 }
 

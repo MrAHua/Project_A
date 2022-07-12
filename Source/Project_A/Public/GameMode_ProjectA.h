@@ -43,6 +43,16 @@ public:
 	/* Removed current menu widget and specify a new widget */
 	UFUNCTION(BlueprintCallable, Category = "UMG Game")
 	void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
+	//角色死亡重生
+	void CharacterDieAndRespawn(AController* Controller);
+	//角色重生
+	void CharacterRespawn(AController* Controller);
+
+	float RespawnDelay;
+	UPROPERTY(EditAnywhere, Category = "HeroToSpawn")
+	TSubclassOf<class AWarrior> HeroClass;
+
+	AActor* EnemySpawnPoint;
 
 	FStandardDelegateSignature MyStandardDelegate;
 	FStandardDelegateSignature PointLightOutDelegate;
