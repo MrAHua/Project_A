@@ -370,3 +370,4 @@ FodyWeavers.xsd
 /Intermediate/
 /Saved/
 *.sln
+/Content/__ExternalActors__/Maps/Maps/ThirdPersonMap
